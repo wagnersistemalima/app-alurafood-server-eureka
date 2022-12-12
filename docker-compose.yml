@@ -1,0 +1,26 @@
+# RabbitMQ = http://localhost:15672
+# eureka-server = http://localhost:8081/
+
+version: "3.6"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./dados:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+  server-eureka:
+    image: wagnersistemalima/server-eureka:latest
+    container_name: server-eureka
+    restart: always
+    ports:
+      - 8081:8081
+    volumes:
+      - ./dados:/var/lib/server-eureka/
